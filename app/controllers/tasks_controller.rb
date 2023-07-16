@@ -77,7 +77,7 @@ class TasksController < ApplicationController
     elsif current_button_text=="Pause"
       @task.stop_time = Time.now
       @task.status = Task.statuses[:paused]
-      @task.difference_seconds += (@task.stop_time - @task.start_time)
+      @task.difference_seconds += (@task.stop_time - @task.start_time).to_i
     end
 
     @task.save
