@@ -7,6 +7,9 @@ Rails.application.routes.draw do
  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  post '/tasks/:id/play', to: 'tasks#play', as:'task_play' 
+  post '/tasks/:id/stop', to: 'tasks#stop', as:'task_stop' 
+
   # Defines the root path route ("/")
   #root "application#index"
   root "projects#index"

@@ -3,7 +3,8 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    @user = User.find(current_user.id)
+    @tasks = @user.tasks
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -57,6 +58,39 @@ class TasksController < ApplicationController
     end
   end
 
+  # play task
+  def play
+    current_button_text = params[:currentButtonText]
+    id = params[:id]
+    @task = Task.find(id)
+    
+    if current_button_text=="Play"
+      # if i start another task where is another one running, should be paused
+      @started_task = Task.where.not(id: id).find_by(status: Task.statuses[:started])
+      if @started_task.present? && @started_task.id.present?
+        @started_task.status = Task.statuses[:paused]
+        @started_task.save
+      end
+      # ----------------------------------------------------------------------
+      @task.status = Task.statuses[:started]
+      @task.start_time = Time.now
+    elsif current_button_text=="Pause"
+      @task.stop_time = Time.now
+      @task.status = Task.statuses[:paused]
+      @task.difference_seconds += (@task.stop_time - @task.start_time)
+    end
+
+    @task.save
+  end
+
+  def stop
+    @task = Task.find(params[:id])
+    @task.status = Task.statuses[:stopped]
+    @task.stop_time = Time.now
+    @task.difference_seconds += (@task.stop_time - @task.start_time)
+    @task.save
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task

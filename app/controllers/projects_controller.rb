@@ -3,7 +3,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.all
+    @user = User.find(current_user.id)
+    @projects = @user.projects
   end
 
   # GET /projects/1 or /projects/1.json
@@ -22,7 +23,8 @@ class ProjectsController < ApplicationController
   # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
-
+    @project.user = current_user
+    
     respond_to do |format|
       if @project.save
         format.html { redirect_to project_url(@project), notice: "Project was successfully created." }
