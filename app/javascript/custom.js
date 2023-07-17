@@ -60,7 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault(); // Prevent default form submission
   
         var playButton = this.parentNode.previousElementSibling.querySelector('.play-button');
-        
+        var diff_seconds = this.parentNode.parentNode.parentNode.querySelector('.diff_seconds');
+        //console.log(diff_seconds);
+
         var url = this.dataset.url;
   
         // Perform AJAX request
@@ -76,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
               resetTimer();
               playButton.innerText = 'Play';
+              //diff_seconds.innerText = '';
               playButton.disabled = true;
-              
             } else {
               console.error('Error performing action');
             }
