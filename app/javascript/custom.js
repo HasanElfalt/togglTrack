@@ -5,6 +5,12 @@ var seconds = 0;
 document.addEventListener('DOMContentLoaded', function() {
     var playButtons = document.querySelectorAll('.play-button');
     var stopButtons = document.querySelectorAll('.stop-button');
+
+    playButtons.forEach(p=>{
+      console.log(p);
+      
+      //console.log(p.getAttribute('data-url'));
+    });
   
     playButtons.forEach(function(button) {
       button.addEventListener('click', function(event) {
@@ -73,9 +79,12 @@ document.addEventListener('DOMContentLoaded', function() {
             'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
           },
           //body: JSON.stringify({ currentButtonText: currentButtonText }) // Include the current button text as a parameter
-        })
+        })/*.then(function(data){
+          console.log(data);
+        })*/
           .then(function(response) {
             if (response.ok) {
+              console.log(response)
               resetTimer();
               playButton.innerText = 'Play';
               //diff_seconds.innerText = '';

@@ -5,6 +5,7 @@ class TasksController < ApplicationController
   def index
     @user = User.find(current_user.id)
     @tasks = @user.tasks
+    @projects = @user.projects
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -79,7 +80,7 @@ class TasksController < ApplicationController
       @task.status = Task.statuses[:paused]
       @task.difference_seconds += (@task.stop_time - @task.start_time).to_i
     end
-
+    
     @task.save
   end
 
@@ -89,8 +90,13 @@ class TasksController < ApplicationController
     @task.stop_time = Time.now
     @task.difference_seconds += (@task.stop_time - @task.start_time)
     @task.save
+    #render json: { diff_seconds: @task.diff_seconds }
   end
   
+  def add(a,b)
+    a+b
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task

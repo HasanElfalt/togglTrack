@@ -27,17 +27,16 @@
         <td><%= task.stop_time %></td>-->
         <td class= 'diff_seconds'><%= task.difference_seconds%></td><!--
         <td><%= task.status %></td>-->
-        <td><%= task.project_id %></td>
+        <td><%= @projects.where(id: task.project_id).first.name %></td>
         <td class="d-flex">
-          <%= link_to "Show this task", task , class:"mx-2"%>
+          <%= link_to "Show", task , class:"mx-2"%>
+          <%= link_to "Edit", edit_task_path(task) , class:"mx-2"%>
           <% if task.status == 1%>
             <%= button_to 'Pause', task_play_path(task), class: 'play-button btn btn-outline-primary', data: { url: task_play_path(task) } , method: :post, remote: true %>
           <%else%>
             <%= button_to 'Play', task_play_path(task), class: 'play-button btn btn-outline-primary mx-2', data: { url: task_play_path(task) } , method: :post, remote: true %>
           <%end%>
-
           <%= button_to 'Stop', task_stop_path(task), class: 'stop-button btn btn-outline-secondary', data: { url: task_stop_path(task) } , method: :post, remote: true, disabled: true %>
-
         </td>
       </tr>
     <% end %>

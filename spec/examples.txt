@@ -1,0 +1,8 @@
+example_id                                  | status | run_time        |
+------------------------------------------- | ------ | --------------- |
+./spec/controllers/tasks/add_spec.rb[1:1:1] | passed | 0.00079 seconds |
+./spec/features/login_spec.rb[1:1:1]        | passed | 0.05748 seconds |
+./spec/features/login_spec.rb[2:1:1]        | passed | 1.09 seconds    |
+./spec/features/tasks_spec.rb[1:1:1]        | passed | 0.02734 seconds |
+./spec/models/project_spec.rb[1:1:1:1]      | passed | 0.00455 seconds |
+./spec/models/project_spec.rb[1:1:2:1]      | passed | 0.00102 seconds |
